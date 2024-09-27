@@ -1,32 +1,40 @@
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+"use client";
 
-export default function Events() {
+import { useState } from "react";
+import CommunityCard from "@/components/ui/card";
+import { dummyEvents } from "@/lib/dummy-events";
+import { handleEventAction } from "@/lib/utils";
+
+const EventsPage = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center p-4 md:p-24">
-      <h1 className="text-4xl font-bold mb-6 text-center">Community Events</h1>
-
-      <div className="w-full max-w-2xl">
-        <Card className="mb-4">
-          <CardHeader>
-            <CardTitle>Community Cleanup Day</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>Date: Saturday, October 15th</p>
-            <p>Location: Community Park</p>
-            <p>Join us for our annual community cleanup event!</p>
-          </CardContent>
-        </Card>
-        <Card className="mb-4">
-          <CardHeader>
-            <CardTitle>Neighborhood Watch Meeting</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>Date: Wednesday, October 19th</p>
-            <p>Location: Community Center</p>
-            <p>Monthly meeting to discuss community safety.</p>
-          </CardContent>
-        </Card>
+    <div className="container mx-auto py-10">
+      <h1 className="text-3xl font-bold mb-6">Upcoming Events</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {dummyEvents.map((event) => (
+          <Card key={event.id} className="flex flex-col">
+            <CardHeader>
+              <CardTitle>{event.title}</CardTitle>
+              <CardDescription>{event.description}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>
+                <strong>Date:</strong> {format(event.date, "MMMM d, yyyy")}
+              </p>
+              <p>
+                <strong>Time:</strong> {format(event.date, "h:mm a")}
+              </p>
+              <p>
+                <strong>Location:</strong> {event.location}
+              </p>
+            </CardContent>
+            <CardFooter className="mt-auto">
+              <Button className="w-full">View Details</Button>
+            </CardFooter>
+          </Card>
+        ))}
       </div>
-    </main>
+    </div>
   );
-}
+};
+
+export default EventsPage;
